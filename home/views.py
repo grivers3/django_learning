@@ -21,6 +21,10 @@ class SignupView(CreateView):
 
 class LogoutInterfaceView(LogoutView):
     template_name = 'home/welcome.html'
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        return {'today': datetime.today()}
 
 class LoginInterfaceView(LoginView):
     template_name = 'home/login.html'
