@@ -3,9 +3,12 @@ from xml.dom import ValidationErr
 from django import forms
 
 from .models import Notes
-
+#from .models import Notes, Size (Does not exist. Just example)
 
 class NotesForm(forms.ModelForm):
+
+    # size = forms.ModelChoiceField(queryset=Size.objects, empty_label=None, widget=forms.RadioSelect)
+
     class Meta:
         model = Notes
         fields = ('title', 'text')
