@@ -6,12 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="../../../../favicon.ico">    
-        <title>SmartNotes</title>
+        <title>{% block title %}Smart Notes{% endblock %}</title>   
+        <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>     
+        {% comment %} <link rel="icon" href="../../../../favicon.ico">     {% endcomment %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
+        {% block navbar%}
         <nav class='navbar navbar-dark bg-dark'>
             <div class='ms-auto'>
                 <a href="{% url 'home' %}" class="btn btn-outline-light me-1">Home</a>
@@ -24,10 +26,15 @@
                 {% endif %}
             </div>
         </nav>
-        <div class="my-5 text-center container">
-        {% block content %}
         {% endblock %}
-        </div>
+        <main class="container my-5 text-center">
+            {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+            {% endblock %}
+        </footer>
+        
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
