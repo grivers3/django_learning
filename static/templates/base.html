@@ -1,45 +1,73 @@
 {% load static%}
+{# HTML5 declaration #}
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>{% block title %}Smart Notes{% endblock %}</title>   
-        {% comment %} <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/> {% endcomment %}
-        <link rel="icon" type="image/png" href="{% static 'bootstrap-icons/card-list.svg' %}"/>
-        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'bootstrap-icons/bootstrap-icons.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <title>{% block pagetitle %}Smart Notes{% endblock pagetitle %}</title>   
+        {% block head_favicon %}
+            {% comment %} <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/> {% endcomment %}
+            <link rel="icon" type="image/svg" href="{% static 'bootstrap-icons/card-list.svg' %}"/>
+        {% endblock head_favicon %}    
+        {% block head_meta %}
+            {% block head_meta_charset %}
+                {% comment %} <meta charset="utf-8"> {% endcomment %}
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            {% endblock head_meta_charset %}
+            {% block head_meta_contentlanguage %}
+                {% comment %} <meta http-equiv="Content-Language" value="en-US" /> {% endcomment %}
+            {% endblock head_meta_contentlanguage %}
+            {% block head_meta_viewport %}
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            {% endblock head_meta_viewport %}
+            {% block head_meta_description %}
+                <meta name="description" content="">
+            {% endblock head_meta_description %}
+            {% block head_meta_author %}
+                <meta name="author" content="">
+            {% endblock head_meta_author %}
+        {% endblock head_meta %}
+        {% block head_css %}
+            {% block head_css_site %}
+                {% comment %} <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen"> {% endcomment %}
+                <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+                <link rel="stylesheet" href="{% static 'bootstrap-icons/bootstrap-icons.css' %}">
+                <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+            {% endblock head_css_site %}
+            {% block head_css_section %}{% endblock head_css_section %}
+            {% block head_css_page %}{% endblock head_css_page %}
+        {% endblock head_css %}
     </head>
     <body>
-        {% block navbar%}
-        <nav class='navbar navbar-dark bg-dark'>
-            <div class='ms-auto'>
-                <a href="{% url 'home' %}" class="btn btn-outline-light me-1">Home</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'notes.new' %}" class="btn btn-outline-light me-1">Create</a>
-                    <a href="{% url 'logout' %}" class="btn btn-outline-light me-1">Logout</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-light me-1">Login</a>
-                    <a href="{% url 'signup' %}" class="btn btn-outline-light me-1">Signup</a>
-                {% endif %}
-            </div>
-        </nav>
-        {% endblock %}
-        <main class="container my-5 text-center">
+        {% block header%}<header>{% endblock header%}
+            {% block title %}{% endblock title %}
+            {% block navbar %}
+                <nav class='navbar navbar-dark bg-dark'>
+                    <div class='ms-auto'>
+                        <a href="{% url 'home' %}" class="btn btn-outline-danger me-1">Home</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'notes.new' %}" class="btn btn-outline-light me-1">Create</a>
+                            <a href="{% url 'logout' %}" class="btn btn-outline-light me-1">Logout</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-light me-1">Login</a>
+                            <a href="{% url 'signup' %}" class="btn btn-outline-light me-1">Signup</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            {% endblock navbar %}
+            {% block subtitle%}{% endblock subtitle%}            
+        </header>
+        {% block main%}<main class="container my-5 text-center">{% endblock main%}
             {% block content %}<!-- default content text (typically empty) -->{% endblock %}
         </main>
-        <footer>
-            {% block footer %}
-            {% endblock %}
+        {% block footer %}<footer>{% endblock footer%}
+            {% block footer_links %}{% endblock footer_links%}
         </footer>
-        
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
-        <script src="{% static 'jquery-3.3.1.min.js' %}" ></script>        
+        {% block javaScript %}
+            <!-- Bootstrap core JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
+            <script src="{% static 'jquery-3.3.1.min.js' %}" ></script>     
+        {% endblock javaScript%}   
     </body>
 </html>
